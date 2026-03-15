@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdel Illah Bekkal Brikci — Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Sora:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-2: #4a4a46;
+    --ink-3: #8a8a84;
+    --surface: #fafaf7;
+    --surface-2: #f0efe9;
+    --border: rgba(26,26,24,0.10);
+    --accent: #7a0000;
+    --accent-light: #f9eded;
+    --accent-mid: #9b0000;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Sora', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --nav-h: 60px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #f0efe9;
+      --ink-2: #b4b2a9;
+      --ink-3: #5f5e5a;
+      --surface: #1a1a18;
+      --surface-2: #242420;
+      --border: rgba(240,239,233,0.10);
+      --accent: #c0392b;
+      --accent-light: #3b0a0a;
+      --accent-mid: #a93226;
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    background: var(--surface);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-wordmark {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .nav-wordmark span {
+    color: var(--ink-3);
+    font-weight: 300;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--ink-2);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .lang-toggle { display: flex; gap: 6px; align-items: center; }
+
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .lang-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .hero { padding-top: 7rem; padding-bottom: 6rem; }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--ink-2);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 22px;
+    border: 0.5px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .hero-cta:hover { background: var(--accent-light); }
+
+  .divider {
+    display: block;
+    width: 100%;
+    margin: 0 auto 3rem;
+  }
+
+  .divider svg {
+    display: block;
+    width: 100%;
+    height: 6px;
+    overflow: visible;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+    line-height: 1.2;
+  }
+
+  /* About — photo left, content right */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-photo-col { display: flex; flex-direction: column; gap: 1rem; }
+
+  .about-photo {
+    width: 200px;
+    height: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+    background: var(--surface-2);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .photo-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+
+  .photo-placeholder-monogram {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .photo-placeholder-hint {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .about-brx {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--ink-3);
+    text-align: center;
+  }
+
+  .about-brx strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .about-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .about-text p {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+
+  .about-meta { display: flex; flex-direction: column; gap: 10px; }
+
+  .meta-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .meta-row:last-child { border-bottom: none; }
+
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  .meta-value { font-size: 13px; color: var(--ink-2); }
+
+  /* Skills */
+  .skills-area { display: flex; flex-direction: column; gap: 2rem; }
+
+  .skill-group { display: flex; flex-direction: column; gap: 10px; }
+
+  .skill-group-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .chip {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 5px 13px;
+    border: 0.5px solid var(--border);
+    border-radius: 2px;
+    color: var(--ink-3);
+    background: var(--surface-2);
+    letter-spacing: 0.02em;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    cursor: default;
+  }
+
+  .chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  /* Social */
+  .social-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    padding: 2rem 0 0.5rem;
+  }
+
+  .social-link {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    text-decoration: none;
+    color: var(--ink-3);
+    transition: color 0.2s, transform 0.2s;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .social-link:hover { color: var(--accent); transform: translateY(-3px); }
+
+  .social-icon {
+    width: 48px; height: 48px;
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-2);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .social-link:hover .social-icon {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .social-icon svg { width: 20px; height: 20px; fill: currentColor; }
+
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-3);
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .about-layout { grid-template-columns: 1fr; }
+    .about-photo { width: 100%; height: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#top" class="nav-wordmark">BRX<span>-DEV</span></a>
+  <ul class="nav-links">
+    <li><a href="#about" data-en="About" data-fr="À propos">About</a></li>
+    <li><a href="#skills" data-en="Skills" data-fr="Compétences">Skills</a></li>
+    <li><a href="#contact" data-en="Contact" data-fr="Contact">Contact</a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('fr')">FR</button>
+  </div>
+</nav>
+
+<section class="hero" id="top">
+  <span class="hero-tag" data-en="Software Engineer" data-fr="Ingénieur Logiciel">Software Engineer</span>
+  <h1 data-en="Building systems,<br><em>saving resources.</em>" data-fr="Des systèmes construits,<br><em>des ressources préservées.</em>">Building systems,<br><em>saving resources.</em></h1>
+  <p class="hero-sub"
+     data-en="I'm Abdel Illah, a software engineer building full-stack solutions across web, desktop, and mobile. I care about clean architecture, reliable APIs, and systems that work under real-world conditions."
+     data-fr="Je suis Abdel Illah, ingénieur logiciel concevant des solutions full-stack pour le web, le bureau et le mobile. Architecture propre, APIs fiables et systèmes pensés pour le monde réel.">I'm Abdel Illah, a software engineer building full-stack solutions across web, desktop, and mobile. I care about clean architecture, reliable APIs, and systems that work under real-world conditions.</p>
+  <a href="#contact" class="hero-cta" data-en="Get in touch →" data-fr="Me contacter →">Get in touch →</a>
+</section>
+
+<section id="about">
+  <div class="divider">
+    <svg viewBox="0 0 740 6" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="d1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7a0000" stop-opacity="0"/><stop offset="50%" stop-color="#7a0000" stop-opacity="1"/><stop offset="100%" stop-color="#7a0000" stop-opacity="0"/></linearGradient></defs>
+      <ellipse cx="370" cy="3" rx="370" ry="2.5" fill="url(#d1)"/>
+    </svg>
+  </div>
+  <span class="section-label" data-en="01 — About" data-fr="01 — À propos">01 — About</span>
+  <h2 class="section-title" data-en="Who I am" data-fr="Qui je suis">Who I am</h2>
+
+  <div class="about-layout">
+    <div class="about-photo-col">
+      <div class="about-photo">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <span class="photo-placeholder-monogram">AB</span>
+          <span class="photo-placeholder-hint">your photo</span>
+        </div>
+        <img id="photoImg" src="IMG_0466.jpg" alt="Abdel Illah Bekkal Brikci" style="display:none; width:100%; height:100%; object-fit:cover; object-position: center top;">
+      </div>
+      <span class="about-brx"><strong>BRX</strong>-DEV<br>ABDEL ILLAH <strong>BEKKAL BRIKCI</strong></span>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text">
+        <p data-en="I'm Abdel Illah Bekkal Brikci, a software developer based in Oran, Algeria. I work across the full stack, web, desktop, and mobile, with a specialisation in the .NET ecosystem. My work spans the entire product lifecycle, from schema design and API architecture to polished front-end experiences."
+           data-fr="Je suis Abdel Illah Bekkal Brikci, développeur logiciel basé à Oran, Algérie. Je travaille sur toute la stack, web, bureau et mobile, avec une spécialisation dans l'écosystème .NET. Mon travail couvre le cycle de vie d'un produit, de la conception de schéma et l'architecture API jusqu'aux interfaces finales.">I'm Abdel Illah Bekkal Brikci, a software developer based in Oran, Algeria. I work across the full stack, web, desktop, and mobile, with a specialisation in the .NET ecosystem. My work spans the entire product lifecycle, from schema design and API architecture to polished front-end experiences.</p>
+        <p data-en="I care about clean architecture and writing code that stays maintainable long after the deadline. Whether it's a cross-platform mobile app, a data-heavy desktop system, or a web API serving thousands of requests, I build it to last."
+           data-fr="Je tiens à l'architecture propre et à un code maintenable bien après la deadline. Qu'il s'agisse d'une app mobile multiplateforme, d'un système de bureau orienté données, ou d'une Web API à fort trafic, je construis pour durer.">I care about clean architecture and writing code that stays maintainable long after the deadline. Whether it's a cross-platform mobile app, a data-heavy desktop system, or a web API serving thousands of requests, I build it to last.</p>
+      </div>
+      <div class="about-meta">
+        <div class="meta-row">
+          <span class="meta-label" data-en="Location" data-fr="Localisation">Location</span>
+          <span class="meta-value">Oran, Algeria</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label" data-en="Platforms" data-fr="Plateformes">Platforms</span>
+          <span class="meta-value" data-en="Desktop · Mobile · Web" data-fr="Bureau · Mobile · Web">Desktop · Mobile · Web</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label" data-en="Languages" data-fr="Langues">Languages</span>
+          <span class="meta-value">English · Arabic · French</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label" data-en="Available for" data-fr="Disponible pour">Available for</span>
+          <span class="meta-value" data-en="Freelance · Part time · Full-time" data-fr="Freelance · Temps partiel · Temps plein">Freelance · Part time · Full-time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="divider">
+    <svg viewBox="0 0 740 6" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="d2" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7a0000" stop-opacity="0"/><stop offset="50%" stop-color="#7a0000" stop-opacity="1"/><stop offset="100%" stop-color="#7a0000" stop-opacity="0"/></linearGradient></defs>
+      <ellipse cx="370" cy="3" rx="370" ry="2.5" fill="url(#d2)"/>
+    </svg>
+  </div>
+  <span class="section-label" data-en="02 — Skills" data-fr="02 — Compétences">02 — Skills</span>
+  <h2 class="section-title" data-en="What I work with" data-fr="Ce que je travaille avec">What I work with</h2>
+
+  <div class="skills-area">
+    <div class="skill-group">
+      <span class="skill-group-label" data-en="Language & Runtime" data-fr="Langage & Runtime">Language & Runtime</span>
+      <div class="chip-row">
+        <span class="chip">C#</span>
+        <span class="chip">.NET</span>
+        <span class="chip">XAML</span>
+        <span class="chip">SQL</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <span class="skill-group-label" data-en="Platforms & Frameworks" data-fr="Plateformes & Frameworks">Platforms & Frameworks</span>
+      <div class="chip-row">
+        <span class="chip">.NET MAUI</span>
+        <span class="chip">WPF</span>
+        <span class="chip">ASP.NET Web API</span>
+        <span class="chip">Blazor</span>
+        <span class="chip">Entity Framework</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <span class="skill-group-label" data-en="Databases" data-fr="Bases de données">Databases</span>
+      <div class="chip-row">
+        <span class="chip">PostgreSQL</span>
+        <span class="chip">SQLite</span>
+        <span class="chip">JSONB</span>
+        <span class="chip">Schema Design</span>
+        <span class="chip">Query Optimisation</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <span class="skill-group-label" data-en="Architecture & Patterns" data-fr="Architecture & Patterns">Architecture & Patterns</span>
+      <div class="chip-row">
+        <span class="chip">System Design</span>
+        <span class="chip">MVVM</span>
+        <span class="chip">REST API Design</span>
+        <span class="chip">Clean Architecture</span>
+        <span class="chip">Authentication / JWT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="divider">
+    <svg viewBox="0 0 740 6" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="d3" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7a0000" stop-opacity="0"/><stop offset="50%" stop-color="#7a0000" stop-opacity="1"/><stop offset="100%" stop-color="#7a0000" stop-opacity="0"/></linearGradient></defs>
+      <ellipse cx="370" cy="3" rx="370" ry="2.5" fill="url(#d3)"/>
+    </svg>
+  </div>
+  <span class="section-label" data-en="03 — Contact" data-fr="03 — Contact">03 — Contact</span>
+  <h2 class="section-title" data-en="Let's work together" data-fr="Travaillons ensemble">Let's work together</h2>
+
+  <div class="social-row">
+    <a class="social-link" href="https://instagram.com/ab.keraunos" target="_blank">
+      <div class="social-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <span data-en="Instagram" data-fr="Instagram">Instagram</span>
+    </a>
+
+    <a class="social-link" href="mailto:brikciabdelillah@email.com?subject=Work%20Inquiry&body=Hello%20Abdel%20Illah,%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20potential%20opportunity.%0A%0ADetails:%0A%0ABest%20regards,%0A" target="_blank">
+      <div class="social-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <span data-en="Email" data-fr="Email">Email</span>
+    </a>
+
+    <a class="social-link" href="https://github.com/keraunos-ab" target="_blank">
+      <div class="social-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </div>
+      <span data-en="GitHub" data-fr="GitHub">GitHub</span>
+    </a>
+
+    <a class="social-link" href="tel:+213210611.25" target="_blank">
+      <div class="social-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </div>
+      <span data-en="Phone" data-fr="Téléphone">Phone</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span data-en="Abdel Illah Bekkal Brikci — BRX-DEV — 2026" data-fr="Abdel Illah Bekkal Brikci — BRX-DEV — 2026">Abdel Illah Bekkal Brikci — BRX-DEV — 2026</span>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (el.tagName === 'A' || el.tagName === 'H1') el.innerHTML = val;
+      else el.textContent = val;
+    });
+  }
+
+  // Auto-show photo if src is set
+  const img = document.getElementById('photoImg');
+  if (img && img.getAttribute('src')) {
+    img.style.display = 'block';
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  }
+</script>
+</body>
+</html>
